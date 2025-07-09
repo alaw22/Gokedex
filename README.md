@@ -1,0 +1,2 @@
+# Gokedex
+Pokedex in Go
