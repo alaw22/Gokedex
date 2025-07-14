@@ -36,13 +36,14 @@ func StartREPL(config *Config) {
         }
 
         commandName := clean[0]
+		arguments := clean[1:]
         command, ok := getCommands()[commandName]
         if !ok {
             fmt.Println("Unknown command")
             continue
         }
 
-        err := command.callback(config)
+        err := command.callback(config, arguments...)
         if err != nil{
             fmt.Println(err)
         }
@@ -53,7 +54,7 @@ func StartREPL(config *Config) {
 type cliCommand struct {
 	name 		string 
 	description string
-	callback 	func(config *Config) error
+	callback 	func(config *Config, args ...string) error
 }
 
 func getCommands() map[string]cliCommand {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func commandMap(config *Config) error {
+func commandMap(config *Config, args ...string) error {
 
 	locAreaResp, err := config.gokeapiClient.GetLocationAreas(config.nextLocationareasURL)
 	if err != nil {
@@ -23,7 +23,7 @@ func commandMap(config *Config) error {
 }
 
 
-func commandMapb(config *Config) error {
+func commandMapb(config *Config, args ...string) error {
 	if config.previousLocationareasURL == nil {
 		return errors.New("You are on the first page, no turning back")
 	}
