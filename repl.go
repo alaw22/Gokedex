@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	gokeapiClient api.Client
+	gokedex map[string]api.Pokemon
 	nextLocationareasURL *string
 	previousLocationareasURL *string
 }
@@ -59,6 +60,11 @@ type cliCommand struct {
 
 func getCommands() map[string]cliCommand {
 	return map[string]cliCommand{
+		"catch": cliCommand{
+			name: "catch",
+			description: "Attempt to catch a pokemon",
+			callback: commandCatch,
+		},
 		"explore": cliCommand{
 			name: "explore",
 			description: "Explore an area",
