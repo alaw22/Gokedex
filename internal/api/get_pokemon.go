@@ -3,9 +3,13 @@ package api
 import (
 	"io"
 	"net/http"
+	"fmt"
 	"encoding/json"
 )
 
+const (
+	NotFound = 404
+)
 
 func (c *Client) GetPokemonInfo(pokemonName string) (Pokemon, error) {
 	url := GokedexURL + "/pokemon/" + pokemonName
@@ -28,13 +32,18 @@ func (c *Client) GetPokemonInfo(pokemonName string) (Pokemon, error) {
 	if err != nil {
 		return Pokemon{}, err
 	}
-
+	
+	if res.StatusCode == NotFound {
+		return Pokemon{}, fmt.Errorf("no pokemon data found for %s",pokemonName)
+	}
+	
 	defer res.Body.Close()
 
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
 		return Pokemon{}, err
 	}
+
 
 	pokemon := Pokemon{}
 	err = json.Unmarshal(data,&pokemon)
