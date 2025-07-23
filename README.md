@@ -1,5 +1,5 @@
 # Gokedex
-Pokedex in Go
+Pokedex in Go. This was a guided project from boot.dev that really helped me learn REPL's and HTTP clients.
 
 
 ## Welcome to Build a Pokedex
